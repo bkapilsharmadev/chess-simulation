@@ -45,4 +45,24 @@ describe("ChessBoard", () => {
             expect(() => ChessBoard.getPosition()).toThrow();
         });
     });
+
+    describe('getPositionCoordinates()', () => {
+        test('should return row and column for valid position', () => {
+            expect(ChessBoard.getPositionCoordinates('A1')).toEqual([1, 1]);
+            expect(ChessBoard.getPositionCoordinates('H8')).toEqual([8, 8]);
+            expect(ChessBoard.getPositionCoordinates('H1')).toEqual([1, 8]);
+        });
+
+        test('should throw error for invalid position', () => {
+            expect(() => ChessBoard.getPositionCoordinates('A10')).toThrow();
+            expect(() => ChessBoard.getPositionCoordinates('K9')).toThrow();
+            expect(() => ChessBoard.getPositionCoordinates('A0')).toThrow();
+            expect(() => ChessBoard.getPositionCoordinates('A')).toThrow();
+            expect(() => ChessBoard.getPositionCoordinates('AA1')).toThrow();
+            expect(() => ChessBoard.getPositionCoordinates('5')).toThrow();
+            expect(() => ChessBoard.getPositionCoordinates(null)).toThrow();
+            expect(() => ChessBoard.getPositionCoordinates(undefined)).toThrow();
+            expect(() => ChessBoard.getPositionCoordinates()).toThrow();
+        });
+    });
 });

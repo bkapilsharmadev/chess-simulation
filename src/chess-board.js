@@ -1,8 +1,6 @@
 export default class ChessBoard {
-    constructor() {
-        this.rows = 8;
-        this.columns = 8;
-    }
+    static ROWS = 8;
+    static COLS = 8;
 
     /** 
      * Check if position is within the bounds A1 to H8.
@@ -41,5 +39,22 @@ export default class ChessBoard {
 
         const colName = String.fromCharCode(64 + col);
         return `${colName}${row}`;
+    }
+
+    /**
+     * Get row and column for given chessboard position.
+     * @param {string} position - The chessboard position. Eg. A1, H8.
+     * @returns {Array<number>} - The row and column numbers.
+     * @throws {Error} - If position is invalid.
+     */
+    static getPositionCoordinates(position) {
+        if (!ChessBoard.isValidPosition(position)) {
+            throw new Error('Invalid position');
+        }
+
+        const col = position[0].toUpperCase().charCodeAt(0) - 64;
+        const row = parseInt(position[1]);
+
+        return [row, col];
     }
 }
