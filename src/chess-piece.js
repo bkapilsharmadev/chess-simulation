@@ -24,4 +24,13 @@ export default class ChessPiece {
         ChessPiece.registeredPieces.add(name);
         return true;
     }
+
+    /**
+     * Check if a piece is valid.
+     * @param {string} name - The name of the piece.
+     * @returns {boolean} - true if piece is registered. false otherwise.
+     */
+    static isValidPiece(name) {
+        return ChessPiece.registeredPieces.has(name);
+    }
 }
