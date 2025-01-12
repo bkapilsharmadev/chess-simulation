@@ -108,4 +108,27 @@ describe('ChessPiece', () => {
             expect(() => piece.calculateMoves('D4', null, Infinity)).toThrow();
         });
     });
+
+    describe('getPossibleMoves()', () => {
+        test('should throw an error if called on the base class', () => {
+            expect(() => (new ChessPiece()).getPossibleMoves('E4')).toThrow(
+                'ChessPiece is an abstract class and cannot be instantiated directly.'
+            );
+        });
+
+        test('should allow subclasses to implement their own getPossibleMoves method', () => {
+            class Pawn extends ChessPiece {
+                getPossibleMoves(position) {
+                    return ChessPiece.calculateMoves(position, [[1, 0]], 1);
+                }
+            }
+
+            ChessPiece.registerPiece('Pawn', Pawn);
+
+            const pawn = new Pawn();
+            const moves = pawn.getPossibleMoves('E4');
+            const expectedMoves = ['E5'];
+            expect(moves).toEqual(expectedMoves);
+        });
+    });
 });
