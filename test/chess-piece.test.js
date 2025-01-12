@@ -6,6 +6,10 @@ describe('ChessPiece', () => {
         expect(ChessPiece).toBeDefined();
     });
 
+    test('should have a static property registeredPieces', () => {
+        expect(ChessPiece.registeredPieces).toBeInstanceOf(Set);
+    });
+
     describe('registerPiece()', () => {
         test('should register a new piece and return true', () => {
             expect(ChessPiece.registerPiece('Pawn', class extends ChessPiece { })).toBe(true);
@@ -33,5 +37,7 @@ describe('ChessPiece', () => {
             expect(() => ChessPiece.registerPiece('Bishop', class { })).toThrow();
         });
     });
+
+
 
 });
