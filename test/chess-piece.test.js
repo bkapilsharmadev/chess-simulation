@@ -2,6 +2,11 @@ import ChessPiece from '../src/chess-piece.js';
 
 describe('ChessPiece', () => {
 
+    beforeEach(() => {
+        ChessPiece.registeredPieces = new Set();
+    });
+
+
     test('should be defined', () => {
         expect(ChessPiece).toBeDefined();
     });
@@ -52,6 +57,10 @@ describe('ChessPiece', () => {
         });
 
         test('should return true if piece is registered', () => {
+            ChessPiece.registerPiece('Pawn', class extends ChessPiece { });
+            ChessPiece.registerPiece('King', class extends ChessPiece { });
+            ChessPiece.registerPiece('Queen', class extends ChessPiece { });
+
             expect(ChessPiece.isValidPiece('Pawn')).toBe(true);
             expect(ChessPiece.isValidPiece('King')).toBe(true);
             expect(ChessPiece.isValidPiece('Queen')).toBe(true);
@@ -66,20 +75,19 @@ describe('ChessPiece', () => {
     });
 
     describe('calculateMoves()', () => {
-        const piece = new ChessPiece();
-        
+
         test('should be defined', () => {
-            expect(piece.calculateMoves).toBeDefined();
+            expect(ChessPiece.calculateMoves).toBeDefined();
         });
 
         test('should calculate moves for a piece', () => {
-            const moves = piece.calculateMoves('E4', [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]], Infinity);
-            const expectedMoves = ['A4', 'B4', 'C4', 'D4', 'F4', 'G4', 'H4','E1', 'E2', 'E3', 'E5', 'E6', 'E7', 'E8','A8', 'B7', 'C6', 'D5', 'F3', 'G2', 'H1','B1', 'C2', 'D3', 'F5', 'G6', 'H7'];
+            const moves = ChessPiece.calculateMoves('E4', [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]], Infinity);
+            const expectedMoves = ['A4', 'B4', 'C4', 'D4', 'F4', 'G4', 'H4', 'E1', 'E2', 'E3', 'E5', 'E6', 'E7', 'E8', 'A8', 'B7', 'C6', 'D5', 'F3', 'G2', 'H1', 'B1', 'C2', 'D3', 'F5', 'G6', 'H7'];
             expect(moves.sort()).toEqual(expectedMoves.sort());
         });
 
         test('should calculate moves for a piece', () => {
-            const moves = piece.calculateMoves('D4', [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]], 1);
+            const moves = ChessPiece.calculateMoves('D4', [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]], 1);
             const expectedMoves = ['C3', 'C4', 'C5', 'D3', 'D5', 'E3', 'E4', 'E5'];
             expect(moves.sort()).toEqual(expectedMoves.sort());
         });

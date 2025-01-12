@@ -4,6 +4,12 @@ import ChessBoard from "./chess-board.js";
 export default class ChessPiece {
     static registeredPieces = new Set();
 
+    constructor() {
+        if (new.target === ChessPiece) {
+            throw new Error('ChessPiece is an abstract class and cannot be instantiated directly.');
+        }
+    }
+
     /**
      * Register a new chess piece.
      * @param {string} name - The name of the piece.
@@ -44,7 +50,7 @@ export default class ChessPiece {
      * @param {number} stepLimit - The maximum number of steps the piece can take.
      * @returns {string} - The possible moves for the piece. e.g. 'A2, A3, A4'
     */
-    calculateMoves(position, directions, stepLimit = Infinity) {
+    static calculateMoves(position, directions, stepLimit = Infinity) {
         if (!position || !directions || directions.length === 0 || !stepLimit) {
             throw new Error('Invalid parameters');
         }
@@ -56,13 +62,13 @@ export default class ChessPiece {
         const [row, col] = ChessBoard.getPositionCoordinates(position);
         const moves = [];
 
-        for(const [dRow, dCol] of directions) {
+        for (const [dRow, dCol] of directions) {
             let newRow = row + dRow;
             let newCol = col + dCol;
             let step = 0;
-           
 
-            while(
+
+            while (
                 newRow >= 1 && newRow <= ChessBoard.ROWS &&
                 newCol >= 1 && newCol <= ChessBoard.COLS &&
                 step < stepLimit
@@ -75,5 +81,14 @@ export default class ChessPiece {
         }
 
         return moves;
+    }
+
+    /**
+     * Abstrat method to be implemented by the child class.
+     * @param {string} position - The current position of the piece. e.g. 'A1'
+     * @throws {Error} - If called by base class.
+     */
+    getPossibleMoves(position) {
+        throw new Error('getPossibleMoves must be implemented by subclass');
     }
 }
