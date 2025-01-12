@@ -57,8 +57,6 @@ export default class ChessPiece {
         const moves = [];
 
         for(const [dRow, dCol] of directions) {
-            console.log('DIRECTION>>> ', dRow, dCol);
-
             let newRow = row + dRow;
             let newCol = col + dCol;
             let step = 0;

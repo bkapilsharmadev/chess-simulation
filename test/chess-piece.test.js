@@ -100,8 +100,4 @@ describe('ChessPiece', () => {
             expect(() => piece.calculateMoves('D4', null, Infinity)).toThrow();
         });
     });
-
-
-
-
 });
