@@ -4,6 +4,11 @@ import ChessBoard from "./chess-board.js";
 export default class ChessPiece {
     static registeredPieces = new Set();
 
+    static DEFAULT_DIRECTIONS = {
+        horizontalVertical: [[1, 0], [0, 1], [-1, 0], [0, -1]], 
+        diagonal: [[1, 1], [-1, -1], [1, -1], [-1, 1]],
+    };
+
     constructor() {
         if (new.target === ChessPiece) {
             throw new Error('ChessPiece is an abstract class and cannot be instantiated directly.');
