@@ -16,7 +16,6 @@ export default class King extends ChessPiece {
 
         let moves = ChessPiece.calculateMoves(position, directions, 1);
         moves = moves.sort((a, b) => {
-            console.log('a>>', a, 'b>>', b);
             const [rowA, colA] = ChessBoard.getPositionCoordinates(a);
             const [rowB, colB] = ChessBoard.getPositionCoordinates(b);
 
