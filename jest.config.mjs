@@ -1,4 +1,7 @@
 export default {
-    transform: {}, // Ensure no transformation happens
-    testEnvironment: 'node',
+	transform: {},
+	testEnvironment: "node",
+	collectCoverage: true,
+	coverageDirectory: "coverage",
+	coverageReporters: ["text", "lcov"],
 };
